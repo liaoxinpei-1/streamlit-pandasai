@@ -1,2 +1,2 @@
-pandasai-1.4.5
+pandasai
 streamlit
