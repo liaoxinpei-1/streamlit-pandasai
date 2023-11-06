@@ -1,5 +1,5 @@
 
-openai_api_key = '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'
+
 
 import os
 import streamlit as st
@@ -9,7 +9,7 @@ from pandasai.llm import OpenAI
 from pandasai.responses.response_parser import ResponseParser
 import pandas as pd
 
-
+openai_api_key = os.getenv("openai_api_key") 
 
 
 class StreamlitCallback(BaseCallback):
