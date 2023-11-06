@@ -1,6 +1,3 @@
-
-
-
 import os
 import streamlit as st
 from pandasai import SmartDataframe
@@ -10,7 +7,7 @@ from pandasai.responses.response_parser import ResponseParser
 import pandas as pd
 
 openai_api_key = os.getenv("openai_api_key") 
-
+# openai_api_key = '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'
 
 class StreamlitCallback(BaseCallback):
     def __init__(self, container) -> None:
@@ -19,7 +16,6 @@ class StreamlitCallback(BaseCallback):
 
     def on_code(self, response: str):
         self.container.code(response)
-
 
 class StreamlitResponse(ResponseParser):
     def __init__(self, context) -> None:
@@ -40,16 +36,18 @@ class StreamlitResponse(ResponseParser):
 
 st.write("# Chat with Credit Card Fraud Dataset 🦙")
 
-df = pd.read_csv('E:\mytool\Streamlit_pandasAi\data.csv')
+uploaded_file = st.file_uploader("Upload a Dataset", type="csv")
+if uploaded_file is not None:
+    df = pd.read_csv(uploaded_file)
 
-with st.expander("🔎 Dataframe Preview"):
-    st.write(df.tail(3))
+    with st.expander("🔎 Dataframe Preview"):
+        st.write(df.head())
 
 query = st.text_area("🗣️ Chat with Dataframe")
 container = st.container()
 
 if query:
-    llm = OpenAI(api_token=os.environ["OPENAI_API_KEY"])
+    llm = OpenAI(api_token=openai_api_key)
     query_engine = SmartDataframe(
         df,
         config={
@@ -60,3 +58,4 @@ if query:
     )
 
     answer = query_engine.chat(query)
+    st.write(answer)
