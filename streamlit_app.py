@@ -7,7 +7,6 @@ from pandasai.responses.response_parser import ResponseParser
 import pandas as pd
 
 openai_api_key = os.getenv("openai_api_key") 
-openai_api_key = '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'
 
 class StreamlitCallback(BaseCallback):
     def __init__(self, container) -> None:
@@ -59,5 +58,3 @@ if query:
 
     answer = query_engine.chat(query)
     st.write(answer)
-    # st获取本地的环境变量
-    st.write(os.getenv("openai_api_key"))
