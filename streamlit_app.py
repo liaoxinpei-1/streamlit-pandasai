@@ -59,3 +59,5 @@ if query:
 
     answer = query_engine.chat(query)
     st.write(answer)
+    # st获取本地的环境变量
+    st.write(os.getenv("openai_api_key"))
